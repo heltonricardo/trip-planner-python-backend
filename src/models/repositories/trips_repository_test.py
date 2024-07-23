@@ -16,8 +16,8 @@ def test_create_trip():
     trips_infos = {
         "id": str(uuid.uuid4()),
         "destination": "Tokio",
-        "start_date": date,
-        "end_date": date + timedelta(days=5),
+        "start_date": date.isoformat(),
+        "end_date": (date + timedelta(days=5)).isoformat(),
         "owner_name": "José das Coves",
         "owner_email": "jose@coves.com"
     }
