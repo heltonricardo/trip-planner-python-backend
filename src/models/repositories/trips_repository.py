@@ -8,7 +8,6 @@ class TripsRepository:
     def create_trip(self, trips_infos: dict) -> None:
         if self.__conn is None:
             return
-
         cursor = self.__conn.cursor()
         cursor.execute(
             '''
@@ -27,3 +26,16 @@ class TripsRepository:
             )
         )
         self.__conn.commit()
+
+    def find_trip_by_id(self, trip_id: str) -> tuple:
+        cursor = self.__conn.cursor()
+        cursor.execute(
+            '''
+                SELECT * FROM trips
+                WHERE id = ?
+            ''', (
+                trip_id,
+            )
+        )
+        trip = cursor.fetchone()
+        return trip
