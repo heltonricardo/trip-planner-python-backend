@@ -5,6 +5,7 @@ from src.models.settings.db_connection_handler import db_connection_handler
 
 
 db_connection_handler.connect()
+trip_id = str(uuid.uuid4())
 
 
 def test_create_trip():
@@ -14,7 +15,7 @@ def test_create_trip():
     date = datetime.strptime("01-08-2024", "%d-%m-%Y")
 
     trips_infos = {
-        "id": str(uuid.uuid4()),
+        "id": trip_id,
         "destination": "Tokio",
         "start_date": date.isoformat(),
         "end_date": (date + timedelta(days=5)).isoformat(),
@@ -23,3 +24,12 @@ def test_create_trip():
     }
 
     trips_repository.create_trip(trips_infos)
+
+
+def test_find_trip_by_id():
+    conn = db_connection_handler.get_connection()
+    trips_repository = TripsRepository(conn)
+
+    trip = trips_repository.find_trip_by_id(trip_id)
+    print()
+    print(trip)
