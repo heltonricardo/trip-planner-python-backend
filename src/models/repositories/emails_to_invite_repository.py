@@ -21,7 +21,7 @@ class EmailsToEnviteRepository:
         )
         self.__conn.commit()
 
-    def find_emails_from_trip(self, trip_id: str) -> list[tuple]:
+    def find_emails_from_trip_id(self, trip_id: str) -> list[tuple]:
         cursor = self.__conn.cursor()
         cursor.execute(
             '''
