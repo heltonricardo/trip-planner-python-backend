@@ -3,6 +3,7 @@ import pytest
 from src.models.settings.db_connection_handler import db_connection_handler
 from .links_repository import LinksRepository
 
+
 db_connection_handler.connect()
 trip_id = str(uuid.uuid4())
 

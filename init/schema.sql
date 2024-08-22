@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS 'trips' (
     status INTEGER
 );
 
-CREATE TABLE IF NOT EXISTS 'emails_to_invite' (
+CREATE TABLE IF NOT EXISTS 'emails' (
     id TEXT PRIMARY KEY,
     trip_id TEXT,
     email TEXT NOT NULL,

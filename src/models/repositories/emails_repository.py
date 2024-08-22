@@ -1,7 +1,7 @@
 from sqlite3 import Connection
 
 
-class EmailsToEnviteRepository:
+class EmailsRepository:
     def __init__(self, conn: Connection) -> None:
         self.__conn = conn
 
@@ -9,7 +9,7 @@ class EmailsToEnviteRepository:
         cursor = self.__conn.cursor()
         cursor.execute(
             '''
-                INSERT INTO emails_to_invite
+                INSERT INTO emails
                     (id, trip_id, email)
                 VALUES
                     (?, ?, ?)
@@ -25,7 +25,7 @@ class EmailsToEnviteRepository:
         cursor = self.__conn.cursor()
         cursor.execute(
             '''
-                SELECT * FROM emails_to_invite
+                SELECT * FROM emails
                 WHERE trip_id = ?
             ''', (
                 trip_id,
