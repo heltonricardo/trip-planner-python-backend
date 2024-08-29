@@ -21,9 +21,9 @@ def test_registry_email():
 
 
 @pytest.mark.skip(reason="Interaction with DB")
-def test_find_emails_from_trip_id():
+def test_find_emails_by_trip_id():
     conn = db_connection_handler.get_connection()
     emails_repository = EmailsRepository(conn)
-    emails = emails_repository.find_emails_from_trip_id(trip_id)
+    emails = emails_repository.find_emails_by_trip_id(trip_id)
     assert isinstance(emails, list)
     assert isinstance(emails[0], tuple)
