@@ -1,12 +1,12 @@
 import uuid
 
 
-class TripController:
+class TripCreate:
     def __init__(self, trips_repository, emails_repository) -> None:
         self.__trips_repository = trips_repository
         self.__emails_repository = emails_repository
 
-    def create(self, body) -> dict:
+    def create_trip(self, body) -> dict:
         try:
             trip_id = str(uuid.uuid4())
             emails = body.get("emails") or []
