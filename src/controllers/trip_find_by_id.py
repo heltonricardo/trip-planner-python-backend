@@ -6,8 +6,9 @@ class TripFindById:
         try:
             trip = self.__trips_repository.find_trip_by_id(trip_id)
             if not trip:
-                raise Exception("No trip found")
+                raise Exception("No trip found",  404)
             return {
+                "status_code": 200,
                 "body": {
                     "trip": {
                         "id": trip[0],
@@ -19,10 +20,12 @@ class TripFindById:
                         "status": trip[6],
                     },
                 },
-                "status_code": 200
             }
         except Exception as exception:
             return {
-                "body": {"error": "Bad Request", "message": str(exception)},
-                "status_code": 400,
+                "status_code": exception.args[1] or 400,
+                "body": {
+                    "error": "Bad Request",
+                    "message": exception.args[0] or "Unknown error"
+                },
             }

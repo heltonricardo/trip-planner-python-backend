@@ -11,9 +11,9 @@ class TripsRepository:
             '''
                 INSERT INTO trips
                     (id, destination, start_date, end_date, owner_name,
-                     owner_email)
+                     owner_email, status)
                 VALUES
-                    (?, ?, ?, ?, ?, ?)
+                    (?, ?, ?, ?, ?, ?, ?)
             ''', (
                 trip_info["id"],
                 trip_info["destination"],
@@ -21,6 +21,7 @@ class TripsRepository:
                 trip_info["end_date"],
                 trip_info["owner_name"],
                 trip_info["owner_email"],
+                0,
             )
         )
         self.__conn.commit()
@@ -38,7 +39,7 @@ class TripsRepository:
         trip = cursor.fetchone()
         return trip
 
-    def update_trip_status(self, trip_id: str) -> None:
+    def confirm_trip(self, trip_id: str) -> None:
         cursor = self.__conn.cursor()
         cursor.execute(
             '''
