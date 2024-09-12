@@ -15,7 +15,7 @@ def test_registry_link():
     link_info = {
         "id": str(uuid.uuid4()),
         "trip_id": trip_id,
-        "link": "https://www.trivago.com/",
+        "url": "https://www.trivago.com/",
         "title": "Hotel",
     }
     links_repository.registry_link(link_info)
