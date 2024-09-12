@@ -1,4 +1,5 @@
 from flask import jsonify, Blueprint, request
+from src.controllers.link_find_by_trip_id import LinkFindByTripId
 from src.controllers.link_registry import LinkRegistry
 from src.controllers.trip_confirm import TripConfirm
 from src.controllers.trip_create import TripCreate
@@ -46,4 +47,13 @@ def link_registry(trip_id):
     trips_repository = LinksRepository(conn)
     controller = LinkRegistry(trips_repository)
     response = controller.link_registry(trip_id, request.json)
+    return jsonify(response["body"]), response["status_code"]
+
+
+@trips_routes_bp.route("/trips/<trip_id>/links", methods=["GET"])
+def find_links_by_trip_id(trip_id):
+    conn = db_connection_handler.get_connection()
+    trips_repository = LinksRepository(conn)
+    controller = LinkFindByTripId(trips_repository)
+    response = controller.find_links_by_trip_id(trip_id)
     return jsonify(response["body"]), response["status_code"]
