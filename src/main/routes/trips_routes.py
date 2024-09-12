@@ -40,8 +40,8 @@ def trip_confirm(trip_id):
     return jsonify(response["body"]), response["status_code"]
 
 
-@trips_routes_bp.route("/trips/<trip_id>/emails", methods=["POST"])
-def email_registry(trip_id):
+@trips_routes_bp.route("/trips/<trip_id>/links", methods=["POST"])
+def link_registry(trip_id):
     conn = db_connection_handler.get_connection()
     trips_repository = LinksRepository(conn)
     controller = LinkRegistry(trips_repository)
