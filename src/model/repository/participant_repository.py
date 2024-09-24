@@ -24,7 +24,7 @@ class ParticipantRepository:
         )
         self.__conn.commit()
 
-    def find_participant_by_trip_id(self, trip_id: str) -> list[tuple]:
+    def find_participants_by_trip_id(self, trip_id: str) -> list[tuple]:
         cursor = self.__conn.cursor()
         cursor.execute(
             '''
@@ -33,7 +33,21 @@ class ParticipantRepository:
                 WHERE trip_id = ?
             ''',
             (
-                trip_id
+                trip_id,
             )
         )
         return cursor.fetchall()
+
+    def update_participant_status(self, participant_id) -> None:
+        cursor = self.__conn.cursor()
+        cursor.execute(
+            '''
+                UPDATE participants
+                SET is_confirmed = 1
+                WHERE id = ?
+            ''',
+            (
+                participant_id,
+            )
+        )
+        self.__conn.commit()
