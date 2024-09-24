@@ -17,6 +17,6 @@ class LinkRegistry:
             return {"body": {"id": id}, "status_code": 201}
         except Exception as exception:
             return {
-                "body": {"error": "Bad Request", "message": str(exception)},
-                "status_code": 400,
+                "status_code": exception.args[1] or 400,
+                "body": {"error": exception.args[0] or "Unknown error"},
             }

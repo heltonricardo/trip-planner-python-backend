@@ -24,8 +24,5 @@ class TripFindById:
         except Exception as exception:
             return {
                 "status_code": exception.args[1] or 400,
-                "body": {
-                    "error": "Bad Request",
-                    "message": exception.args[0] or "Unknown error"
-                },
+                "body": {"error": exception.args[0] or "Unknown error"},
             }
