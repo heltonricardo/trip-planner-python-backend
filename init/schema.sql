@@ -8,13 +8,6 @@ CREATE TABLE IF NOT EXISTS 'trips' (
     status INTEGER
 );
 
-CREATE TABLE IF NOT EXISTS 'emails' (
-    id TEXT PRIMARY KEY,
-    trip_id TEXT,
-    email TEXT NOT NULL,
-    FOREIGN KEY (trip_id) REFERENCES trips(id)
-);
-
 CREATE TABLE IF NOT EXISTS 'links' (
     id TEXT PRIMARY KEY,
     trip_id TEXT,
@@ -25,12 +18,11 @@ CREATE TABLE IF NOT EXISTS 'links' (
 
 CREATE TABLE IF NOT EXISTS 'participants' (
     id TEXT PRIMARY KEY,
-    trip_id TEXT NOT NULL,
-    emails_id TEXT NOT NULL,
     name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    trip_id TEXT NOT NULL,
     is_confirmed INTEGER,
-    FOREIGN KEY (trip_id) REFERENCES trips(id),
-    FOREIGN KEY (emails_id) REFERENCES emails(id)
+    FOREIGN KEY (trip_id) REFERENCES trips(id)
 );
 
 CREATE TABLE IF NOT EXISTS 'activities'(
