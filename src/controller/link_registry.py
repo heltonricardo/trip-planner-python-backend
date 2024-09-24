@@ -10,7 +10,7 @@ class LinkRegistry:
         try:
             trip = self.__trip_repository.find_trip_by_id(trip_id)
             if not trip:
-                raise Exception("No trip found",  404)
+                raise Exception("No trips found",  404)
             id = str(uuid.uuid4())
             link_info = {"id": id, "trip_id": trip_id, **body}
             self.__link_repository.registry_link(link_info)

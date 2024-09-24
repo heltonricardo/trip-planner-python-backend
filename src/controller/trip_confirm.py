@@ -6,7 +6,7 @@ class TripConfirm:
         try:
             trip = self.__trip_repository.find_trip_by_id(trip_id)
             if not trip:
-                raise Exception("No trip found",  404)
+                raise Exception("No trips found",  404)
             self.__trip_repository.confirm_trip(trip_id)
             return {"body": None, "status_code": 204}
         except Exception as exception:

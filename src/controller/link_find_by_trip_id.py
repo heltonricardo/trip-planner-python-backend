@@ -10,14 +10,14 @@ class LinkFindByTripId:
             links = [
                 {
                     "id": link[0],
-                    "url": link[2],
-                    "title": link[3]
+                    "url": link[1],
+                    "title": link[2]
                 }
                 for link in search
             ]
             return {
                 "status_code": 200,
-                "body": {"links": links},
+                "body": links,
             }
         except Exception as exception:
             return {
