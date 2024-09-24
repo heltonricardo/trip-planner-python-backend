@@ -17,8 +17,7 @@ trips_routes_bp = Blueprint("trip_routes", __name__)
 def create_trip():
     conn = db_connection_handler.get_connection()
     trip_repository = TripRepository(conn)
-    participant_repository = ParticipantRepository(conn)
-    controller = TripCreate(trip_repository, participant_repository)
+    controller = TripCreate(trip_repository)
     response = controller.create_trip(request.json)
     return jsonify(response["body"]), response["status_code"]
 
