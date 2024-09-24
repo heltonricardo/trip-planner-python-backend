@@ -4,10 +4,11 @@ from src.controllers.link_registry import LinkRegistry
 from src.controllers.trip_confirm import TripConfirm
 from src.controllers.trip_create import TripCreate
 from src.controllers.trip_find_by_id import TripFindById
-from src.models.repositories.emails_repository import EmailsRepository
 from src.models.repositories.links_repository import LinksRepository
 from src.models.repositories.trips_repository import TripsRepository
 from src.models.settings.db_connection_handler import db_connection_handler
+from src.models.repositories.participants_repository \
+    import ParticipantsRepository
 
 
 trips_routes_bp = Blueprint("trip_routes", __name__)
@@ -17,8 +18,8 @@ trips_routes_bp = Blueprint("trip_routes", __name__)
 def create_trip():
     conn = db_connection_handler.get_connection()
     trips_repository = TripsRepository(conn)
-    emails_repository = EmailsRepository(conn)
-    controller = TripCreate(trips_repository, emails_repository)
+    participants_repository = ParticipantsRepository(conn)
+    controller = TripCreate(trips_repository, participants_repository)
     response = controller.create_trip(request.json)
     return jsonify(response["body"]), response["status_code"]
 
