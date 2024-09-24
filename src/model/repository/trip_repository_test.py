@@ -1,8 +1,8 @@
 import uuid
 import pytest
 from datetime import datetime, timedelta
-from .trips_repository import TripsRepository
-from src.models.settings.db_connection_handler import db_connection_handler
+from .trip_repository import TripRepository
+from src.model.settings.db_connection_handler import db_connection_handler
 
 
 db_connection_handler.connect()
@@ -12,7 +12,7 @@ trip_id = str(uuid.uuid4())
 @pytest.mark.skip(reason="Interaction with DB")
 def test_create_trip():
     conn = db_connection_handler.get_connection()
-    trips_repository = TripsRepository(conn)
+    trips_repository = TripRepository(conn)
     date = datetime.strptime("01-08-2024", "%d-%m-%Y")
     trips_infos = {
         "id": trip_id,
@@ -28,7 +28,7 @@ def test_create_trip():
 @pytest.mark.skip(reason="Interaction with DB")
 def test_find_trip_by_id():
     conn = db_connection_handler.get_connection()
-    trips_repository = TripsRepository(conn)
+    trips_repository = TripRepository(conn)
     trip = trips_repository.find_trip_by_id(trip_id)
     print(trip)
 
@@ -36,5 +36,5 @@ def test_find_trip_by_id():
 @pytest.mark.skip(reason="Interaction with DB")
 def test_update_trip_status():
     conn = db_connection_handler.get_connection()
-    trips_repository = TripsRepository(conn)
+    trips_repository = TripRepository(conn)
     trips_repository.confirm_trip(trip_id)

@@ -1,7 +1,7 @@
 from sqlite3 import Connection
 
 
-class LinksRepository:
+class LinkRepository:
     def __init__(self, conn: Connection) -> None:
         self.__conn = conn
 

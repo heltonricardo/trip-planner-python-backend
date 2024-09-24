@@ -1,7 +1,7 @@
 from sqlite3 import Connection
 
 
-class TripsRepository:
+class TripRepository:
     def __init__(self, conn: Connection) -> None:
         self.__conn = conn
 
