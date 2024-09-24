@@ -43,16 +43,17 @@ def trip_confirm(trip_id):
 @trips_routes_bp.route("/trips/<trip_id>/links", methods=["POST"])
 def link_registry(trip_id):
     conn = db_connection_handler.get_connection()
-    trip_repository = LinkRepository(conn)
-    controller = LinkRegistry(trip_repository)
-    response = controller.link_registry(trip_id, request.json)
+    link_repository = LinkRepository(conn)
+    trip_repository = TripRepository(conn)
+    controller = LinkRegistry(link_repository, trip_repository)
+    response = controller.link_registry(request.json, trip_id)
     return jsonify(response["body"]), response["status_code"]
 
 
 @trips_routes_bp.route("/trips/<trip_id>/links", methods=["GET"])
 def find_links_by_trip_id(trip_id):
     conn = db_connection_handler.get_connection()
-    trip_repository = LinkRepository(conn)
-    controller = LinkFindByTripId(trip_repository)
+    link_repository = LinkRepository(conn)
+    controller = LinkFindByTripId(link_repository)
     response = controller.find_links_by_trip_id(trip_id)
     return jsonify(response["body"]), response["status_code"]
