@@ -11,15 +11,16 @@ class ParticipantRepository:
         cursor.execute(
             '''
                 INSERT INTO participants
-                    (id, name, email, trip_id)
+                    (id, name, email, trip_id, is_confirmed)
                 VALUES
-                    (?, ?, ?, ?)
+                    (?, ?, ?, ?, ?)
             ''',
             (
                 participant_info["id"],
                 participant_info["name"],
                 participant_info["email"],
                 participant_info["trip_id"],
+                0,
             )
         )
         self.__conn.commit()
