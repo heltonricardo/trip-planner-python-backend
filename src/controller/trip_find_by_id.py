@@ -1,10 +1,10 @@
 class TripFindById:
-    def __init__(self, trips_repository) -> None:
-        self.__trips_repository = trips_repository
+    def __init__(self, trip_repository) -> None:
+        self.__trip_repository = trip_repository
 
     def find_trip_by_id(self, trip_id) -> dict:
         try:
-            trip = self.__trips_repository.find_trip_by_id(trip_id)
+            trip = self.__trip_repository.find_trip_by_id(trip_id)
             if not trip:
                 raise Exception("No trip found",  404)
             return {

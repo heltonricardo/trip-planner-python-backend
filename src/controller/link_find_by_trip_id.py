@@ -1,10 +1,10 @@
 class LinkFindByTripId:
-    def __init__(self, links_repository) -> None:
-        self.__links_repository = links_repository
+    def __init__(self, link_repository) -> None:
+        self.__link_repository = link_repository
 
     def find_links_by_trip_id(self, trip_id):
         try:
-            search = self.__links_repository.find_links_by_trip_id(trip_id)
+            search = self.__link_repository.find_links_by_trip_id(trip_id)
             if not search:
                 raise Exception(f"No links found for trip_id {trip_id}",  404)
             links = [
