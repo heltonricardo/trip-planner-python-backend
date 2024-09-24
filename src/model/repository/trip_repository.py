@@ -9,12 +9,19 @@ class TripRepository:
         cursor = self.__conn.cursor()
         cursor.execute(
             '''
-                INSERT INTO trips
-                    (id, destination, start_date, end_date, owner_name,
-                     owner_email, status)
+                INSERT INTO trips (
+                    id,
+                    destination,
+                    start_date,
+                    end_date,
+                    owner_name,
+                    owner_email,
+                    status
+                )
                 VALUES
                     (?, ?, ?, ?, ?, ?, ?)
-            ''', (
+            ''',
+            (
                 trip_info["id"],
                 trip_info["destination"],
                 trip_info["start_date"],
@@ -32,7 +39,8 @@ class TripRepository:
             '''
                 SELECT * FROM trips
                 WHERE id = ?
-            ''', (
+            ''',
+            (
                 trip_id,
             )
         )
@@ -46,7 +54,8 @@ class TripRepository:
                 UPDATE trips
                     SET status = 1
                 WHERE id = ?
-            ''', (
+            ''',
+            (
                 trip_id,
             )
         )

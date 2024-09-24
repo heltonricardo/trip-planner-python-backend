@@ -27,8 +27,8 @@ CREATE TABLE IF NOT EXISTS 'participants' (
 
 CREATE TABLE IF NOT EXISTS 'activities'(
     id TEXT PRIMARY KEY,
-    trip_id TEXT NOT NULL,
     title TEXT NOT NULL,
     occurs_at DATETIME,
+    trip_id TEXT NOT NULL,
     FOREIGN KEY (trip_id) REFERENCES trips(id)
 );

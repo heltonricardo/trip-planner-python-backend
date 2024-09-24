@@ -10,7 +10,7 @@ class ParticipantRepository:
         cursor = self.__conn.cursor()
         cursor.execute(
             '''
-                SELECT INTO participants
+                INSERT INTO participants
                     (id, name, email, trip_id)
                 VALUES
                     (?, ?, ?, ?)

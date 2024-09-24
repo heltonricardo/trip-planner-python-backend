@@ -26,9 +26,11 @@ class LinkRepository:
         cursor = self.__conn.cursor()
         cursor.execute(
             '''
-                SELECT * FROM links
+                SELECT id, url, title
+                FROM links
                 WHERE trip_id = ?
-            ''', (
+            ''',
+            (
                 trip_id,
             )
         )
