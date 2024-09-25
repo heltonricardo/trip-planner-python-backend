@@ -46,7 +46,7 @@ class TripController:
                     "end_date": trip[3],
                     "owner_name": trip[4],
                     "owner_email": trip[5],
-                    "status": trip[6],
+                    "is_confirmed": trip[6],
                 }
             }
         except Exception as exception:

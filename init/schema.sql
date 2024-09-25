@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS 'trips' (
     end_date DATETIME,
     owner_name TEXT NOT NULL,
     owner_email TEXT NOT NULL,
-    status INTEGER
+    is_confirmed INTEGER
 );
 
 CREATE TABLE IF NOT EXISTS 'links' (

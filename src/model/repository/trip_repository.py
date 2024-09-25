@@ -16,7 +16,7 @@ class TripRepository:
                     end_date,
                     owner_name,
                     owner_email,
-                    status
+                    is_confirmed
                 )
                 VALUES
                     (?, ?, ?, ?, ?, ?, ?)
@@ -52,7 +52,7 @@ class TripRepository:
         cursor.execute(
             '''
                 UPDATE trips
-                    SET status = 1
+                    SET is_confirmed = 1
                 WHERE id = ?
             ''',
             (
