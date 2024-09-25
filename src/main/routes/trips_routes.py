@@ -69,7 +69,7 @@ def participant_create(trip_id):
     return jsonify(response["body"]), response["status_code"]
 
 
-@trips_routes_bp.route("/trips/<trip_id>/participants", methods=["POST"])
+@trips_routes_bp.route("/trips/<trip_id>/activities", methods=["POST"])
 def activity_create(trip_id):
     conn = db_connection_handler.get_connection()
     actv_repository = ActivityRepository(conn)
