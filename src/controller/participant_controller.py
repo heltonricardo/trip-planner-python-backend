@@ -27,3 +27,30 @@ class ParticipantController:
                 "status_code": exception.args[1] or 400,
                 "body": {"error": exception.args[0] or "Unknown error"},
             }
+
+    def list_by_trip_id(self, trip_id):
+        try:
+            search = self.__participant_repository.list_by_trip_id(trip_id)
+            if not search:
+                raise Exception(
+                    f"No participants found for trip_id {trip_id}",
+                    404
+                )
+            participants = [
+                {
+                    "id": participant[0],
+                    "name": participant[1],
+                    "email": participant[2],
+                    "is_confirmed": participant[3],
+                }
+                for participant in search
+            ]
+            return {
+                "status_code": 200,
+                "body": participants,
+            }
+        except Exception as exception:
+            return {
+                "status_code": exception.args[1] or 400,
+                "body": {"error": exception.args[0] or "Unknown error"},
+            }

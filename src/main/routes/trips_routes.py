@@ -69,6 +69,16 @@ def participant_create(trip_id):
     return jsonify(response["body"]), response["status_code"]
 
 
+@trips_routes_bp.route("/trips/<trip_id>/participants", methods=["GET"])
+def participant_list_by_trip_id(trip_id):
+    conn = db_connection_handler.get_connection()
+    ptcp_repository = ParticipantRepository(conn)
+    trip_repository = TripRepository(conn)
+    ptcp_controller = ParticipantController(ptcp_repository, trip_repository)
+    response = ptcp_controller.list_by_trip_id(trip_id)
+    return jsonify(response["body"]), response["status_code"]
+
+
 @trips_routes_bp.route("/trips/<trip_id>/activities", methods=["POST"])
 def activity_create(trip_id):
     conn = db_connection_handler.get_connection()
