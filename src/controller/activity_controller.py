@@ -27,3 +27,29 @@ class ActivityController:
                 "status_code": exception.args[1] or 400,
                 "body": {"error": exception.args[0] or "Unknown error"},
             }
+
+    def list_by_trip_id(self, trip_id):
+        try:
+            search = self.__activity_repository.list_by_trip_id(trip_id)
+            if not search:
+                raise Exception(
+                    f"No activities found for trip_id {trip_id}",
+                    404
+                )
+            activities = [
+                {
+                    "id": activity[0],
+                    "title": activity[1],
+                    "occurs_at": activity[2],
+                }
+                for activity in search
+            ]
+            return {
+                "status_code": 200,
+                "body": activities,
+            }
+        except Exception as exception:
+            return {
+                "status_code": exception.args[1] or 400,
+                "body": {"error": exception.args[0] or "Unknown error"},
+            }

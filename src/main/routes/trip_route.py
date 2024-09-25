@@ -87,3 +87,13 @@ def activity_create(trip_id):
     actv_controller = ActivityController(actv_repository, trip_repository)
     response = actv_controller.create(request.json, trip_id)
     return jsonify(response["body"]), response["status_code"]
+
+
+@trips_routes_bp.route("/trips/<trip_id>/activities", methods=["GET"])
+def activity_list_by_trip_id(trip_id):
+    conn = db_connection_handler.get_connection()
+    actv_repository = ActivityRepository(conn)
+    trip_repository = TripRepository(conn)
+    actv_controller = ActivityController(actv_repository, trip_repository)
+    response = actv_controller.list_by_trip_id(trip_id)
+    return jsonify(response["body"]), response["status_code"]
