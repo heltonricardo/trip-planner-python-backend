@@ -6,7 +6,7 @@ class ParticipantRepository:
     def __init__(self, conn: Connection) -> None:
         self.__conn = conn
 
-    def create_participant(self, participant_info: dict) -> None:
+    def create(self, participant_info: dict) -> None:
         cursor = self.__conn.cursor()
         cursor.execute(
             '''
@@ -25,7 +25,7 @@ class ParticipantRepository:
         )
         self.__conn.commit()
 
-    def find_participants_by_trip_id(self, trip_id: str) -> list[tuple]:
+    def list_by_trip_id(self, trip_id: str) -> list[tuple]:
         cursor = self.__conn.cursor()
         cursor.execute(
             '''
@@ -39,7 +39,7 @@ class ParticipantRepository:
         )
         return cursor.fetchall()
 
-    def update_participant_status(self, participant_id) -> None:
+    def update_status(self, participant_id) -> None:
         cursor = self.__conn.cursor()
         cursor.execute(
             '''

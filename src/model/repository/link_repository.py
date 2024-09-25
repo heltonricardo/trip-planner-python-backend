@@ -5,7 +5,7 @@ class LinkRepository:
     def __init__(self, conn: Connection) -> None:
         self.__conn = conn
 
-    def create_link(self, link_info: dict) -> None:
+    def create(self, link_info: dict) -> None:
         cursor = self.__conn.cursor()
         cursor.execute(
             '''
@@ -22,7 +22,7 @@ class LinkRepository:
         )
         self.__conn.commit()
 
-    def link_find_by_trip_id(self, trip_id: str) -> list[tuple]:
+    def list_by_trip_id(self, trip_id: str) -> list[tuple]:
         cursor = self.__conn.cursor()
         cursor.execute(
             '''

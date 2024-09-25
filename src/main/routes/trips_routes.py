@@ -1,15 +1,13 @@
-from flask import jsonify, Blueprint, request
-from src.controller.link_find_by_trip_id import LinkFindByTripId
-from src.controller.link_create import LinkCreate
-from src.controller.participant_create import ParticipantCreate
-from src.controller.trip_confirm import TripConfirm
-from src.controller.trip_create import TripCreate
-from src.controller.trip_find_by_id import TripFindById
+from flask import Blueprint, jsonify, request
+from src.controller.activity_controller import ActivityController
+from src.controller.link_controller import LinkController
+from src.controller.participant_controller import ParticipantController
+from src.controller.trip_controller import TripController
+from src.model.repository.activity_repository import ActivityRepository
 from src.model.repository.link_repository import LinkRepository
 from src.model.repository.participant_repository import ParticipantRepository
 from src.model.repository.trip_repository import TripRepository
 from src.model.settings.db_connection_handler import db_connection_handler
-
 
 trips_routes_bp = Blueprint("trip_routes", __name__)
 
@@ -18,8 +16,8 @@ trips_routes_bp = Blueprint("trip_routes", __name__)
 def trip_create():
     conn = db_connection_handler.get_connection()
     trip_repository = TripRepository(conn)
-    controller = TripCreate(trip_repository)
-    response = controller.trip_create(request.json)
+    trip_controller = TripController(trip_repository)
+    response = trip_controller.create(request.json)
     return jsonify(response["body"]), response["status_code"]
 
 
@@ -27,8 +25,8 @@ def trip_create():
 def trip_find_by_id(trip_id):
     conn = db_connection_handler.get_connection()
     trip_repository = TripRepository(conn)
-    controller = TripFindById(trip_repository)
-    response = controller.trip_find_by_id(trip_id)
+    trip_controller = TripController(trip_repository)
+    response = trip_controller.find_by_id(trip_id)
     return jsonify(response["body"]), response["status_code"]
 
 
@@ -36,8 +34,8 @@ def trip_find_by_id(trip_id):
 def trip_confirm(trip_id):
     conn = db_connection_handler.get_connection()
     trip_repository = TripRepository(conn)
-    controller = TripConfirm(trip_repository)
-    response = controller.trip_confirm(trip_id)
+    trip_controller = TripController(trip_repository)
+    response = trip_controller.confirm(trip_id)
     return jsonify(response["body"]), response["status_code"]
 
 
@@ -46,26 +44,36 @@ def link_create(trip_id):
     conn = db_connection_handler.get_connection()
     link_repository = LinkRepository(conn)
     trip_repository = TripRepository(conn)
-    controller = LinkCreate(link_repository, trip_repository)
-    response = controller.link_create(request.json, trip_id)
+    link_controller = LinkController(link_repository, trip_repository)
+    response = link_controller.create(request.json, trip_id)
     return jsonify(response["body"]), response["status_code"]
 
 
 @trips_routes_bp.route("/trips/<trip_id>/links", methods=["GET"])
-def link_find_by_trip_id(trip_id):
+def link_list_by_trip_id(trip_id):
     conn = db_connection_handler.get_connection()
     link_repository = LinkRepository(conn)
-    controller = LinkFindByTripId(link_repository)
-    response = controller.link_find_by_trip_id(trip_id)
+    trip_repository = TripRepository(conn)
+    link_controller = LinkController(link_repository, trip_repository)
+    response = link_controller.list_by_trip_id(trip_id)
     return jsonify(response["body"]), response["status_code"]
 
 
 @trips_routes_bp.route("/trips/<trip_id>/participants", methods=["POST"])
 def participant_create(trip_id):
     conn = db_connection_handler.get_connection()
-    participant_repository = ParticipantRepository(conn)
+    ptcp_repository = ParticipantRepository(conn)
     trip_repository = TripRepository(conn)
-    participant_repository = ParticipantRepository(conn)
-    controller = ParticipantCreate(trip_repository, participant_repository)
-    response = controller.create_participant(request.json, trip_id)
+    ptcp_controller = ParticipantController(ptcp_repository, trip_repository)
+    response = ptcp_controller.create(request.json, trip_id)
+    return jsonify(response["body"]), response["status_code"]
+
+
+@trips_routes_bp.route("/trips/<trip_id>/participants", methods=["POST"])
+def activity_create(trip_id):
+    conn = db_connection_handler.get_connection()
+    actv_repository = ActivityRepository(conn)
+    trip_repository = TripRepository(conn)
+    actv_controller = ActivityController(actv_repository, trip_repository)
+    response = actv_controller.create(request.json, trip_id)
     return jsonify(response["body"]), response["status_code"]

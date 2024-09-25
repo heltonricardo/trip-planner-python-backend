@@ -6,7 +6,7 @@ class ActivityRepository:
     def __init__(self, conn: Connection) -> None:
         self.__conn = conn
 
-    def create_activity(self, activity_info: dict) -> None:
+    def create(self, activity_info: dict) -> None:
         cursor = self.__conn.cursor()
         cursor.execute(
             '''
@@ -24,7 +24,7 @@ class ActivityRepository:
         )
         self.__conn.commit()
 
-    def activity_find_by_trip_id(self, trip_id: str) -> list[tuple]:
+    def list_by_trip_id(self, trip_id: str) -> list[tuple]:
         cursor = self.__conn.cursor()
         cursor.execute(
             '''
