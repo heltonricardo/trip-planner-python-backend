@@ -10,16 +10,14 @@ class TripFindById:
             return {
                 "status_code": 200,
                 "body": {
-                    "trip": {
-                        "id": trip[0],
-                        "destination": trip[1],
-                        "start_date": trip[2],
-                        "end_date": trip[3],
-                        "owner_name": trip[4],
-                        "owner_email": trip[5],
-                        "status": trip[6],
-                    },
-                },
+                    "id": trip[0],
+                    "destination": trip[1],
+                    "start_date": trip[2],
+                    "end_date": trip[3],
+                    "owner_name": trip[4],
+                    "owner_email": trip[5],
+                    "status": trip[6],
+                }
             }
         except Exception as exception:
             return {
