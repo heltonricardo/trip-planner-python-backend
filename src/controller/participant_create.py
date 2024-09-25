@@ -6,14 +6,14 @@ class ParticipantCreate:
         self.__trip_repository = trip_repository
         self.__participant_repository = participant_repository
 
-    def create_trip(self, body, trip_id) -> dict:
+    def create_participant(self, body, trip_id) -> dict:
         try:
-            trip = self.__trip_repository.find_trip_by_id(trip_id)
+            trip = self.__trip_repository.trip_find_by_id(trip_id)
             if not trip:
                 raise Exception("No trips found",  404)
             ptcp_id = str(uuid.uuid4())
             ptcp_info = {"id": ptcp_id, "trip_id": trip_id, **body}
-            self.__participant_repository.registry_participant(ptcp_info)
+            self.__participant_repository.create_participant(ptcp_info)
             return {"body": {"id": trip_id}, "status_code": 201}
         except Exception as exception:
             return {

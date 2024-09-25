@@ -5,7 +5,7 @@ class TripRepository:
     def __init__(self, conn: Connection) -> None:
         self.__conn = conn
 
-    def create_trip(self, trip_info: dict) -> None:
+    def trip_create(self, trip_info: dict) -> None:
         cursor = self.__conn.cursor()
         cursor.execute(
             '''
@@ -33,7 +33,7 @@ class TripRepository:
         )
         self.__conn.commit()
 
-    def find_trip_by_id(self, trip_id: str) -> tuple:
+    def trip_find_by_id(self, trip_id: str) -> tuple:
         cursor = self.__conn.cursor()
         cursor.execute(
             '''

@@ -6,7 +6,7 @@ class ParticipantRepository:
     def __init__(self, conn: Connection) -> None:
         self.__conn = conn
 
-    def registry_participant(self, participant_info: dict) -> None:
+    def create_participant(self, participant_info: dict) -> None:
         cursor = self.__conn.cursor()
         cursor.execute(
             '''

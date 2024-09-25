@@ -4,7 +4,7 @@ class TripConfirm:
 
     def trip_confirm(self, trip_id) -> dict:
         try:
-            trip = self.__trip_repository.find_trip_by_id(trip_id)
+            trip = self.__trip_repository.trip_find_by_id(trip_id)
             if not trip:
                 raise Exception("No trips found",  404)
             self.__trip_repository.confirm_trip(trip_id)
