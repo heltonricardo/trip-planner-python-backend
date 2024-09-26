@@ -17,7 +17,7 @@ class ActivityController:
         try:
             trip = self.__trip_repository.find_by_id(trip_id)
             if not trip:
-                raise Exception("No trips found",  404)
+                raise Exception(f"No trips found for trip_id {trip_id}", 404)
             activity_id = str(uuid.uuid4())
             activity_info = {"id": activity_id, "trip_id": trip_id, **body}
             self.__activity_repository.create(activity_info)

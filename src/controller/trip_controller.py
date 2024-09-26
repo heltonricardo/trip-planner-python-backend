@@ -23,7 +23,7 @@ class TripController:
         try:
             trip = self.__trip_repository.find_by_id(trip_id)
             if not trip:
-                raise Exception("No trips found",  404)
+                raise Exception(f"No trips found for trip_id {trip_id}", 404)
             self.__trip_repository.confirm(trip_id)
             return {"body": None, "status_code": 204}
         except Exception as exception:
@@ -36,7 +36,7 @@ class TripController:
         try:
             trip = self.__trip_repository.find_by_id(trip_id)
             if not trip:
-                raise Exception("No trips found",  404)
+                raise Exception(f"No trips found for trip_id {trip_id}", 404)
             return {
                 "status_code": 200,
                 "body": {

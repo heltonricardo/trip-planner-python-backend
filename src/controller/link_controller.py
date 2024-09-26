@@ -17,7 +17,7 @@ class LinkController:
         try:
             trip = self.__trip_repository.find_by_id(trip_id)
             if not trip:
-                raise Exception("No trips found",  404)
+                raise Exception(f"No trips found for trip_id {trip_id}", 404)
             id = str(uuid.uuid4())
             link_info = {"id": id, "trip_id": trip_id, **body}
             self.__link_repository.create(link_info)
