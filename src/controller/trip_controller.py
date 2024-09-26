@@ -1,5 +1,6 @@
 import uuid
 
+from src.driver.email_sender import send_email
 from src.model.repository.trip_repository import TripRepository
 
 
@@ -12,6 +13,10 @@ class TripController:
             trip_id = str(uuid.uuid4())
             trip_info = {"id": trip_id, **body}
             self.__trip_repository.create(trip_info)
+            send_email(
+                trip_info["owner_email"],
+                f"http://localhost:3000/trips/{trip_id}/confirm"
+            )
             return {"body": {"id": trip_id}, "status_code": 201}
         except Exception as exception:
             return {

@@ -7,7 +7,7 @@ from src.model.settings.db_connection_handler import db_connection_handler
 ptcps_routes_bp = Blueprint("participants_routes", __name__)
 
 
-@ptcps_routes_bp.route("/participants/<ptcp_id>/confirm", methods=["PATCH"])
+@ptcps_routes_bp.route("/participants/<ptcp_id>/confirm", methods=["GET"])
 def participant_confirm(ptcp_id):
     conn = db_connection_handler.get_connection()
     ptcp_repository = ParticipantRepository(conn)

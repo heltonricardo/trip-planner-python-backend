@@ -1,5 +1,6 @@
 import uuid
 
+from src.driver.email_sender import send_email
 from src.model.repository.participant_repository import ParticipantRepository
 from src.model.repository.trip_repository import TripRepository
 
@@ -21,6 +22,10 @@ class ParticipantController:
             ptcp_id = str(uuid.uuid4())
             ptcp_info = {"id": ptcp_id, "trip_id": trip_id, **body}
             self.__participant_repository.create(ptcp_info)
+            send_email(
+                ptcp_info["email"],
+                f"http://localhost:3000/participants/{ptcp_id}/confirm"
+            )
             return {"body": {"id": trip_id}, "status_code": 201}
         except Exception as exception:
             return {
@@ -33,9 +38,9 @@ class ParticipantController:
             exists = self.__participant_repository.exists_by_id(ptcp_id)
             if not exists:
                 raise Exception(
-                        f"No participants found for participant_id {ptcp_id}",
-                        404
-                    )
+                    f"No participants found for participant_id {ptcp_id}",
+                    404
+                )
             self.__participant_repository.confirm(ptcp_id)
             return {"body": None, "status_code": 204}
         except Exception as exception:

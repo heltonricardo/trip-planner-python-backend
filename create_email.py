@@ -1,6 +1,5 @@
 import requests
 
-# Execute this code with `py .\create_email.py` to get an user.
 
 payload = {
     "requestor": "YourNameOrAppName",

@@ -30,7 +30,7 @@ def trip_find_by_id(trip_id):
     return jsonify(response["body"]), response["status_code"]
 
 
-@trips_routes_bp.route("/trips/<trip_id>/confirm", methods=["PATCH"])
+@trips_routes_bp.route("/trips/<trip_id>/confirm", methods=["GET"])
 def trip_confirm(trip_id):
     conn = db_connection_handler.get_connection()
     trip_repository = TripRepository(conn)
