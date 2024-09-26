@@ -15,5 +15,11 @@
     "LICENSE": true,
     ".vscode": true,
     "venv": true
-  }
+  },
+  "cSpell.words": [
+    "actv",
+    "jsonify",
+    "ptcp",
+    "ptcps"
+  ]
 }
