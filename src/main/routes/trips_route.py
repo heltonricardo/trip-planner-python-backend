@@ -9,7 +9,7 @@ from src.model.repository.participant_repository import ParticipantRepository
 from src.model.repository.trip_repository import TripRepository
 from src.model.settings.db_connection_handler import db_connection_handler
 
-trips_routes_bp = Blueprint("trip_routes", __name__)
+trips_routes_bp = Blueprint("trips_routes", __name__)
 
 
 @trips_routes_bp.route("/trips", methods=["POST"])

@@ -17,11 +17,27 @@ class ParticipantController:
         try:
             trip = self.__trip_repository.find_by_id(trip_id)
             if not trip:
-                raise Exception("No trips found",  404)
+                raise Exception(f"No trips found for trip_id {trip_id}", 404)
             ptcp_id = str(uuid.uuid4())
             ptcp_info = {"id": ptcp_id, "trip_id": trip_id, **body}
             self.__participant_repository.create(ptcp_info)
             return {"body": {"id": trip_id}, "status_code": 201}
+        except Exception as exception:
+            return {
+                "status_code": exception.args[1] or 400,
+                "body": {"error": exception.args[0] or "Unknown error"},
+            }
+
+    def confirm(self, ptcp_id) -> dict:
+        try:
+            exists = self.__participant_repository.exists_by_id(ptcp_id)
+            if not exists:
+                raise Exception(
+                        f"No participants found for participant_id {ptcp_id}",
+                        404
+                    )
+            self.__participant_repository.confirm(ptcp_id)
+            return {"body": None, "status_code": 204}
         except Exception as exception:
             return {
                 "status_code": exception.args[1] or 400,

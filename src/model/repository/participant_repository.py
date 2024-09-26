@@ -25,6 +25,20 @@ class ParticipantRepository:
         )
         self.__conn.commit()
 
+    def exists_by_id(self, participant_id: str) -> bool:
+        cursor = self.__conn.cursor()
+        cursor.execute(
+            '''
+                SELECT id
+                FROM participants
+                WHERE id = ?
+            ''',
+            (
+                participant_id,
+            )
+        )
+        return cursor.fetchone() is not None
+
     def list_by_trip_id(self, trip_id: str) -> list[tuple]:
         cursor = self.__conn.cursor()
         cursor.execute(
@@ -39,7 +53,7 @@ class ParticipantRepository:
         )
         return cursor.fetchall()
 
-    def update_status(self, participant_id) -> None:
+    def confirm(self, participant_id) -> None:
         cursor = self.__conn.cursor()
         cursor.execute(
             '''
