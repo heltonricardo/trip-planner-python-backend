@@ -3,7 +3,7 @@ from email.mime.text import MIMEText
 import smtplib
 
 
-# Execute the code from `py ~\create_email.py` to get credentials to test.
+# Execute the code from `~\utils\create_email.py` to get credentials to test.
 # Log in to your account in https://ethereal.email/login to see the emails.
 
 USER = "b34xb3gjlwcx3gxb@ethereal.email"
